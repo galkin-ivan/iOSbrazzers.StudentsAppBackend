@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.galkinivan.StudentsAppBackend.dao.UniversityDao;
@@ -52,6 +53,7 @@ public class ApiController {
 
     @RequestMapping(value = "universities")
     @SuppressWarnings("unchecked")
+    @Transactional
     public String getUniversities(){
         Iterable<University> universities = universityDao.findAll();
         JSONObject jsonObject = new JSONObject();
@@ -59,7 +61,7 @@ public class ApiController {
         JSONArray jsonArray = new JSONArray();
 
         for(University university : universities) {
-/*
+            /*
             System.out.println("University "+university.getName()+" has faculties:");
             Set<Faculty> faculties = university.getFaculties();
             if(faculties != null){

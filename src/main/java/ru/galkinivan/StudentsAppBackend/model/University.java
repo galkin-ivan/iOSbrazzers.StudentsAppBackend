@@ -1,5 +1,8 @@
 package ru.galkinivan.StudentsAppBackend.model;
 
+import org.hibernate.Hibernate;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -26,14 +29,15 @@ public class University {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "universities_faculties", joinColumns = @JoinColumn(name = "university_id"),
             inverseJoinColumns = @JoinColumn(name = "faculty_id"))
     private Set<Faculty> faculties;
 
 
-
+    @Transactional
     public Set<Faculty> getFaculties() {
+        Hibernate.initialize(faculties);
         return faculties;
     }
 
