@@ -7,8 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import ru.galkinivan.StudentsAppBackend.dao.FacultyDao;
 import ru.galkinivan.StudentsAppBackend.dao.UniversityDao;
+import ru.galkinivan.StudentsAppBackend.model.Faculty;
+import ru.galkinivan.StudentsAppBackend.model.Group;
 import ru.galkinivan.StudentsAppBackend.model.University;
 
 import java.io.BufferedReader;
@@ -28,6 +33,9 @@ public class ApiController {
 
     @Autowired
     private UniversityDao universityDao;
+
+    @Autowired
+    private FacultyDao facultyDao;
 
     @RequestMapping(value = "")
     public String index(){
@@ -61,7 +69,7 @@ public class ApiController {
         JSONArray jsonArray = new JSONArray();
 
         for(University university : universities) {
-            /*
+/*          //--- Just printing data... if need be...
             System.out.println("University "+university.getName()+" has faculties:");
             Set<Faculty> faculties = university.getFaculties();
             if(faculties != null){
@@ -76,7 +84,7 @@ public class ApiController {
                 }
             }
             System.out.println("end.");
-            */
+*/
 
 
             JSONObject un = new JSONObject();
@@ -86,6 +94,81 @@ public class ApiController {
         }
 
         jsonObject.put("universities", jsonArray);
+        return jsonObject.toJSONString();
+    }
+
+    @RequestMapping(value = "faculties", method = RequestMethod.GET)
+    @SuppressWarnings("unchecked")
+    @Transactional
+    public String getFaculties( @RequestParam(value = "university", required = false) String universityName) {
+
+        Iterable<Faculty> faculties = null;
+
+        if (universityName == null) {
+            faculties = facultyDao.findAll();
+        } else {
+            University university = universityDao.findByname(universityName);
+            if (university != null)
+                faculties = university.getFaculties();
+        }
+
+        JSONObject jsonObject = new JSONObject();
+        if (faculties != null) {
+
+            JSONArray jsonArray = new JSONArray();
+
+            for (Faculty faculty : faculties) {
+                JSONObject un = new JSONObject();
+                un.put("name", faculty.getName());
+                un.put("description", faculty.getDescription());
+                jsonArray.add(un);
+            }
+
+            jsonObject.put("faculties", jsonArray);
+        }else {
+            jsonObject.put("faculties", null);
+        }
+        return jsonObject.toJSONString();
+    }
+
+    @RequestMapping(value = "groups", method = RequestMethod.GET)
+    @SuppressWarnings("unchecked")
+    @Transactional
+    public String getGroups( @RequestParam(value = "university") String universityName,
+                                @RequestParam(value = "faculty") String facultyName) {
+
+        Iterable<Faculty> faculties = null;
+        Faculty selectedFaculty = null;
+
+        University university = universityDao.findByname(universityName);
+        if (university != null)
+            faculties = university.getFaculties();
+
+        JSONObject jsonObject = new JSONObject();
+
+        if (faculties != null) {
+
+            JSONArray jsonArray = new JSONArray();
+            //--- Finding the selected faculty
+            for (Faculty faculty : faculties) {
+                if (faculty.getName().equals(facultyName)) {
+                    selectedFaculty = faculty;
+                    break;
+                }
+            }
+            Iterable<Group> groups = selectedFaculty.getGroups();
+
+            for (Group group : groups) {
+                JSONObject un = new JSONObject();
+                un.put("name", group.getName());
+                jsonArray.add(un);
+            }
+
+            jsonObject.put("faculties", jsonArray);
+        }else {
+            jsonObject.put("faculties", null);
+        }
+
         return jsonObject.toJSONString();
     }
 }
