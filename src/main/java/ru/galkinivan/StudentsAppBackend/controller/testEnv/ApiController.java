@@ -86,8 +86,8 @@ public class ApiController {
             System.out.println("end.");
 */
 
-
             JSONObject un = new JSONObject();
+            un.put("id", university.getId());
             un.put("name", university.getName());
             un.put("description", university.getDescription());
             jsonArray.add(un);
@@ -100,14 +100,14 @@ public class ApiController {
     @RequestMapping(value = "faculties", method = RequestMethod.GET)
     @SuppressWarnings("unchecked")
     @Transactional
-    public String getFaculties( @RequestParam(value = "university", required = false) String universityName) {
+    public String getFaculties( @RequestParam(value = "university", required = false) Long universityName) {
 
         Iterable<Faculty> faculties = null;
 
         if (universityName == null) {
             faculties = facultyDao.findAll();
         } else {
-            University university = universityDao.findByname(universityName);
+            University university = universityDao.findOne(universityName);
             if (university != null)
                 faculties = university.getFaculties();
         }
@@ -118,10 +118,12 @@ public class ApiController {
             JSONArray jsonArray = new JSONArray();
 
             for (Faculty faculty : faculties) {
-                JSONObject un = new JSONObject();
-                un.put("name", faculty.getName());
-                un.put("description", faculty.getDescription());
-                jsonArray.add(un);
+                JSONObject tmpJSON = new JSONObject();
+
+                tmpJSON.put("id", faculty.getId());
+                tmpJSON.put("name", faculty.getName());
+                tmpJSON.put("description", faculty.getDescription());
+                jsonArray.add(tmpJSON);
             }
 
             jsonObject.put("faculties", jsonArray);
@@ -134,13 +136,13 @@ public class ApiController {
     @RequestMapping(value = "groups", method = RequestMethod.GET)
     @SuppressWarnings("unchecked")
     @Transactional
-    public String getGroups( @RequestParam(value = "university") String universityName,
-                                @RequestParam(value = "faculty") String facultyName) {
+    public String getGroups( @RequestParam(value = "university") Long universityName,
+                                @RequestParam(value = "faculty") Long facultyName) {
 
         Iterable<Faculty> faculties = null;
         Faculty selectedFaculty = null;
 
-        University university = universityDao.findByname(universityName);
+        University university = universityDao.findOne(universityName);
         if (university != null)
             faculties = university.getFaculties();
 
@@ -151,22 +153,27 @@ public class ApiController {
             JSONArray jsonArray = new JSONArray();
             //--- Finding the selected faculty
             for (Faculty faculty : faculties) {
-                if (faculty.getName().equals(facultyName)) {
+                if (faculty.getId().equals(facultyName)) {
                     selectedFaculty = faculty;
                     break;
                 }
             }
             Iterable<Group> groups = selectedFaculty.getGroups();
+            if(groups != null) {
+                for (Group group : groups) {
+                    JSONObject un = new JSONObject();
+                    un.put("id", group.getId());
+                    un.put("name", group.getName());
+                    jsonArray.add(un);
+                }
 
-            for (Group group : groups) {
-                JSONObject un = new JSONObject();
-                un.put("name", group.getName());
-                jsonArray.add(un);
+                jsonObject.put("groups", jsonArray);
             }
-
-            jsonObject.put("faculties", jsonArray);
+            else{
+                jsonObject.put("groups", null);
+            }
         }else {
-            jsonObject.put("faculties", null);
+            jsonObject.put("groups", null);
         }
 
         return jsonObject.toJSONString();

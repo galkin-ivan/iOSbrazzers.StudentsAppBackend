@@ -73,9 +73,19 @@ CREATE TABLE IF NOT EXISTS faculties_groups(
   ENGINE = InnoDB;
 
 -- Insert data
+-- SET FOREIGN_KEY_CHECKS = 0;
 
+INSERT INTO universities (id, name, description)
+VALUES
+  (1, 'МГТУ им. Н.Э.Баумана', 'Московский государственный технический'),
+  (2, 'Московский университет им. С.Ю. Витте', NULL ),
+  (3, 'Московский экономический институт', NULL ),
+  (4, 'Институт международных экономических связей', NULL ),
+  (5, 'Высшая школа экономики', NULL ),
+  (6, 'Российский государственный университет туризма и сервиса', NULL ),
+  (7, 'Московский институт психоанализа', NULL );
 
-INSERT INTO faculties(id, name, descripton) VALUES
+INSERT INTO faculties(id, name, description) VALUES
   (1, 'ИУ', 'Информационные системы и сети'),
   (2, 'СМ', 'Специальное машиностроение'),
   (3, 'ИБМ', NULL ),
@@ -83,7 +93,7 @@ INSERT INTO faculties(id, name, descripton) VALUES
   (5, 'Менеджмент', NULL ),
   (6, 'Туризм', NULL )
   ;
-/*
+
 INSERT INTO universities_faculties (university_id, faculty_id)  VALUES
   (1, 1),
   (1, 2),
@@ -104,22 +114,14 @@ INSERT INTO faculties_groups(faculty_id, group_id) VALUES
   (1, 2),
   (1, 3)
   ;
-*/
 
-/*INSERT INTO universities (id, name, description)
-  VALUES
-    (1, 'МГТУ им. Н.Э.Баумана', 'Московский государственный технический'),
-    (2, 'Московский университет им. С.Ю. Витте', NULL ),
-    (3, 'Московский экономический институт', NULL ),
-    (4, 'Институт международных экономических связей', NULL ),
-    (5, 'Высшая школа экономики', NULL ),
-    (6, 'Российский государственный университет туризма и сервиса', NULL ),
-    (7, 'Московский институт психоанализа', NULL );
-    */
 
--- INSERT INTO users VALUES (1, 'galkinivan', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG');
 
--- INSERT INTO roles VALUES (1, 'ROLE_USER');
--- INSERT INTO roles VALUES (2, 'ROLE_ADMIN');
+INSERT INTO users VALUES (1, 'galkinivan', '$2a$11$uSXS6rLJ91WjgOHhEGDx..VGs7MkKZV68Lv5r1uwFu7HgtRn3dcXG');
 
--- INSERT INTO user_roles VALUES (1, 2);
+ INSERT INTO roles VALUES (1, 'ROLE_USER');
+ INSERT INTO roles VALUES (2, 'ROLE_ADMIN');
+
+ INSERT INTO user_roles VALUES (1, 2);
+
+SET FOREIGN_KEY_CHECKS = 1;
