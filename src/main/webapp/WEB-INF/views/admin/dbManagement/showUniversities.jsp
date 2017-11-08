@@ -23,5 +23,32 @@
 
 </c:if>
 
+<c:if test="${not empty data}">
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Faculties</th>
+            </tr>
+        </thead>
+        <c:forEach var="university" items="${data}">
+            <tr>
+                <td>${university.getId()}</td>
+                <td>${university.getName()} </td>
+                <td>${university.getDescription()}</td>
+                <td>
+                    <c:forEach var="fac" items="${university.getFaculties()}">
+                        <span>${fac.getName()}</span><br/>
+                    </c:forEach>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+
+</c:if>
+
 </body>
 </html>

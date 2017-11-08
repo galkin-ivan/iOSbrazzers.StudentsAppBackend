@@ -72,6 +72,74 @@ CREATE TABLE IF NOT EXISTS faculties_groups(
 )
   ENGINE = InnoDB;
 
+-- Core Data replication
+
+-- Table Subjects
+CREATE TABLE IF NOT EXISTS subjects(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  name VARCHAR(100) NOT NULL
+)
+  ENGINE = InnoDB;
+
+-- Table Activities
+CREATE TABLE IF NOT EXISTS activities(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  short_name VARCHAR(100) NOT NULL ,
+  subject_id INT NOT NULL ,
+
+  FOREIGN KEY (subject_id) REFERENCES subjects(id)
+)
+  ENGINE = InnoDB;
+
+-- Table tasks
+CREATE TABLE IF NOT EXISTS tasks(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  date DATE NOT NULL ,
+  description VARCHAR(100),
+  priority SMALLINT,
+  short_name VARCHAR(150),
+  status SMALLINT,
+  subject_id INT NOT NULL ,
+
+  FOREIGN KEY (subject_id) REFERENCES subjects(id)
+
+)
+  ENGINE = InnoDB;
+
+-- Table Teacher
+CREATE TABLE IF NOT EXISTS teacher(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  name VARCHAR(50),
+  family_name VARCHAR(50),
+  father_name VARCHAR(50)
+)
+  ENGINE = InnoDB;
+
+-- Table TimeTable
+CREATE TABLE IF NOT EXISTS time_table(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  begin_date DATE DEFAULT NULL ,
+  end_date DATE DEFAULT NULL ,
+  date DATE DEFAULT NULL ,
+  day_of_week SMALLINT,
+  start_time INT,
+  end_time INT,
+  parity BOOL DEFAULT NULL ,
+  place VARCHAR(30),
+  type VARCHAR(30),
+  subject_id INT NOT NULL ,
+  teacher_id INT,
+
+  FOREIGN KEY (subject_id) REFERENCES subjects(id),
+  FOREIGN KEY (teacher_id) REFERENCES teacher(id)
+
+)
+  ENGINE = InnoDB;
+
+
+-- End Core Data Replication
+
+
 -- Insert data
 -- SET FOREIGN_KEY_CHECKS = 0;
 

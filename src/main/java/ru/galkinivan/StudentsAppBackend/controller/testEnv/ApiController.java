@@ -69,23 +69,6 @@ public class ApiController {
         JSONArray jsonArray = new JSONArray();
 
         for(University university : universities) {
-/*          //--- Just printing data... if need be...
-            System.out.println("University "+university.getName()+" has faculties:");
-            Set<Faculty> faculties = university.getFaculties();
-            if(faculties != null){
-                for(Faculty faculty : faculties){
-                    System.out.println("\t"+faculty.getName()+ (faculty.getDescription() != null ? " descr: "+faculty.getDescription():""));
-                    Set<Group> groups = faculty.getGroups();
-                    if(groups != null){
-                        for(Group group : groups){
-                            System.out.println("\t\t"+group.getName());
-                        }
-                    }
-                }
-            }
-            System.out.println("end.");
-*/
-
             JSONObject un = new JSONObject();
             un.put("id", university.getId());
             un.put("name", university.getName());
