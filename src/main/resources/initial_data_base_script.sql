@@ -84,6 +84,7 @@ CREATE TABLE IF NOT EXISTS subjects(
 -- Table Activities
 CREATE TABLE IF NOT EXISTS activities(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  date DATE,
   short_name VARCHAR(100) NOT NULL ,
   subject_id INT NOT NULL ,
 
@@ -207,6 +208,17 @@ INSERT INTO subjects(id, name) VALUES
   (11, 'НИР')
   ;
 
+INSERT INTO activities(id, date, short_name, subject_id) VALUES
+  (1, '15.10.2017', 'Рубежный контроль №1', 1),
+  (2, '27.10.2017', 'Рубежный контроль №2', 1),
+  (3, '18.11.2017', 'Рубежный контроль №2', 2),
+  (4, '27.10.2017', 'Рубежный контроль №1', 4),
+  (5, '08.09.2017', 'Рубежный контроль №1', 2),
+  (6, '25.01.2017', 'Экзамен', 7),
+  (7, '28.10.2017', 'Рубежный контроль №1', 8),
+  (8, '28.10.2017', 'Рубежный контроль №3', 6)
+  ;
+
 INSERT INTO teacher(id, name, family_name, father_name) VALUES
   (1, 'Павлов В.А.', '', ''),
   (2, 'Попов А.Ю.', '', ''),
@@ -237,48 +249,8 @@ INSERT INTO tasks(id, date, description, priority, short_name, status, subject_i
   (15, '28.10.2017', '', 2, 'Подготовить что-нибудь для Хартова', 0, 3)
   ;
 
-"Activities": {
-"1": {
-"Date": "15.10.2017",
-"nameShort": "Рубежный контроль №1",
-"Subject": "Экономика"
-},
-"2": {
-"Date": "27.10.2017",
-"nameShort": "Рубежный контроль №2",
-"Subject": "Экономика"
-},
-"3": {
-"Date": "18.11.2017",
-"nameShort": "Рубежный контроль №2",
-"Subject": "Организация ЭВМ и систем"
-},
-"4": {
-"Date": "27.10.2017",
-"nameShort": "Рубежный контроль №1",
-"Subject": "Математическая логика и теория алгоритмов"
-},
-"5": {
-"Date": "08.09.2017",
-"nameShort": "Рубежный контроль №1",
-"Subject": "Организация ЭВМ и систем"
-},
-"6": {
-"Date": "25.01.2017",
-"nameShort": "Экзамен",
-"Subject": "Теория систем и системный анализ"
-},
-"7": {
-"Date": "28.10.2017",
-"nameShort": "Рубежный контроль №1",
-"Subject": "Введение в предпренимательство"
-},
-"8": {
-"Date": "28.10.2017",
-"nameShort": "Рубежный контроль №3",
-"Subject": "Экономика"
-}
-}
+
+
 
 INSERT INTO time_table(id, begin_date, end_date, date, day_of_week, start_time, end_time, parity, place, type, subject_id, teacher_id) VALUES
   (1, '01.09.2017', '31.12.2017', NULL , 2, 1015, 1150, TRUE , '515ю', 'Лекция', 1, 1),
