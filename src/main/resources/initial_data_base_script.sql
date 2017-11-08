@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS activities(
 CREATE TABLE IF NOT EXISTS tasks(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY ,
   date DATE NOT NULL ,
-  description VARCHAR(100),
+  description VARCHAR(400),
   priority SMALLINT,
   short_name VARCHAR(150),
   status SMALLINT,
