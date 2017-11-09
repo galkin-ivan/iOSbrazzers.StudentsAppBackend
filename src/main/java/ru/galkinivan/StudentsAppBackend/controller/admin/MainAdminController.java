@@ -6,9 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import ru.galkinivan.StudentsAppBackend.dao.ActivityDao;
 import ru.galkinivan.StudentsAppBackend.dao.SubjectDao;
 import ru.galkinivan.StudentsAppBackend.dao.TeacherDao;
 import ru.galkinivan.StudentsAppBackend.dao.UniversityDao;
+import ru.galkinivan.StudentsAppBackend.model.Activity;
 import ru.galkinivan.StudentsAppBackend.model.Subject;
 import ru.galkinivan.StudentsAppBackend.model.Teacher;
 import ru.galkinivan.StudentsAppBackend.model.University;
@@ -31,6 +33,9 @@ public class MainAdminController {
 
     @Autowired
     private TeacherDao teacherDao;
+
+    @Autowired
+    private ActivityDao activityDao;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(){
@@ -71,6 +76,14 @@ public class MainAdminController {
 
         Iterable<Teacher> teachers = teacherDao.findAll();
         modelAndView.addObject("teachers", teachers);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "showActivities", method = RequestMethod.GET)
+    public ModelAndView showActivities(){
+        ModelAndView modelAndView = new ModelAndView("admin/dbManagement/showActivities");
+        Iterable<Activity> activities = activityDao.findAll();
+        modelAndView.addObject("activities", activities);
         return modelAndView;
     }
 }

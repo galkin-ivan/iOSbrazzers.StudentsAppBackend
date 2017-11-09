@@ -11,5 +11,6 @@
     <a href="${pageContext.request.contextPath}/adminka/showUniversities">View Universities</a>
     <a href="${pageContext.request.contextPath}/adminka/showSubjects">View Subjects</a>
     <a href="${pageContext.request.contextPath}/adminka/showTeachers">View Teachers</a>
+    <a href="${pageContext.request.contextPath}/adminka/showActivities">View Activities</a>
 </div>
 <br/>
