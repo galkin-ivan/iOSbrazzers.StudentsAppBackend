@@ -12,43 +12,44 @@
     <title>Table Universities</title>
 </head>
 <body>
+<jsp:include page="../header.jsp" />
+<div id="content">
+    <c:if test="${not empty testArr}">
 
-<c:if test="${not empty testArr}">
+        <ul>
+            <c:forEach var="testValue" items="${testArr}">
+                <li>${testValue}</li>
+            </c:forEach>
+        </ul>
 
-    <ul>
-        <c:forEach var="testValue" items="${testArr}">
-            <li>${testValue}</li>
-        </c:forEach>
-    </ul>
+    </c:if>
 
-</c:if>
+    <c:if test="${not empty data}">
 
-<c:if test="${not empty data}">
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Faculties</th>
+                </tr>
+            </thead>
+            <c:forEach var="university" items="${data}">
+                <tr>
+                    <td>${university.getId()}</td>
+                    <td>${university.getName()} </td>
+                    <td>${university.getDescription()}</td>
+                    <td>
+                        <c:forEach var="fac" items="${university.getFaculties()}">
+                            <span>${fac.getName()}</span><br/>
+                        </c:forEach>
+                    </td>
+                </tr>
+            </c:forEach>
+        </table>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Faculties</th>
-            </tr>
-        </thead>
-        <c:forEach var="university" items="${data}">
-            <tr>
-                <td>${university.getId()}</td>
-                <td>${university.getName()} </td>
-                <td>${university.getDescription()}</td>
-                <td>
-                    <c:forEach var="fac" items="${university.getFaculties()}">
-                        <span>${fac.getName()}</span><br/>
-                    </c:forEach>
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
-
-</c:if>
-
+    </c:if>
+</div>
 </body>
 </html>

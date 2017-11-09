@@ -8,7 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<c:set var="contextPath" value="${pageContext.request.contextPath}/adminka"/>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 
 <html>
@@ -16,7 +16,7 @@
     <title>Admin Consolle</title>
 </head>
 <body>
-    <a href="${contextPath}/showUniversities">View Universities</a>
+    <jsp:include page="header.jsp" />
 
 </body>
 </html>
