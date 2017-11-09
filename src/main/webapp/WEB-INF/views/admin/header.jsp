@@ -12,5 +12,7 @@
     <a href="${pageContext.request.contextPath}/adminka/showSubjects">View Subjects</a>
     <a href="${pageContext.request.contextPath}/adminka/showTeachers">View Teachers</a>
     <a href="${pageContext.request.contextPath}/adminka/showActivities">View Activities</a>
+    <a href="${pageContext.request.contextPath}/adminka/showTasks">View Tasks</a>
+    <a href="${pageContext.request.contextPath}/adminka/showTimeTable">View TimeTable</a>
 </div>
 <br/>

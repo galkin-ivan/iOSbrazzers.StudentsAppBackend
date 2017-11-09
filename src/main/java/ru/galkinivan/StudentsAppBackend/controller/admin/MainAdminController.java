@@ -6,14 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import ru.galkinivan.StudentsAppBackend.dao.ActivityDao;
-import ru.galkinivan.StudentsAppBackend.dao.SubjectDao;
-import ru.galkinivan.StudentsAppBackend.dao.TeacherDao;
-import ru.galkinivan.StudentsAppBackend.dao.UniversityDao;
-import ru.galkinivan.StudentsAppBackend.model.Activity;
-import ru.galkinivan.StudentsAppBackend.model.Subject;
-import ru.galkinivan.StudentsAppBackend.model.Teacher;
-import ru.galkinivan.StudentsAppBackend.model.University;
+import ru.galkinivan.StudentsAppBackend.dao.*;
+import ru.galkinivan.StudentsAppBackend.model.*;
 
 /**
  *
@@ -36,6 +30,12 @@ public class MainAdminController {
 
     @Autowired
     private ActivityDao activityDao;
+
+    @Autowired
+    private TaskDao taskDao;
+
+    @Autowired
+    private TimeTableDao timeTableDao;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(){
@@ -84,6 +84,22 @@ public class MainAdminController {
         ModelAndView modelAndView = new ModelAndView("admin/dbManagement/showActivities");
         Iterable<Activity> activities = activityDao.findAll();
         modelAndView.addObject("activities", activities);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "showTasks", method = RequestMethod.GET)
+    public ModelAndView showTasks(){
+        ModelAndView modelAndView = new ModelAndView("admin/dbManagement/showTasks");
+        Iterable<Task> tasks = taskDao.findAll();
+        modelAndView.addObject("tasks", tasks);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "showTimeTable", method = RequestMethod.GET)
+    public ModelAndView showTimeTable(){
+        ModelAndView modelAndView = new ModelAndView("admin/dbManagement/showTimeTable");
+        Iterable<TimeTable> timeTables = timeTableDao.findAll();
+        modelAndView.addObject("timeTables", timeTables);
         return modelAndView;
     }
 }
