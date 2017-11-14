@@ -11,7 +11,7 @@
             "StartDate": "01.09.2017",
             "EndDate": "31.12.2017",
             "weekDay": 2,
-            "Parity": true
+            "Parity": false
         },
         "2": {
             "Date": null,
@@ -102,7 +102,7 @@
             "StartDate": "01.09.2017",
             "EndDate": "31.12.2017",
             "weekDay": 4,
-            "Parity": false
+            "Parity": true
         },
         "9": {
             "Date": null,
@@ -115,7 +115,7 @@
             "StartDate": "01.09.2017",
             "EndDate": "31.12.2017",
             "weekDay": 4,
-            "Parity": false
+            "Parity": true
         },
         "10": {
             "Date": null,
@@ -167,7 +167,7 @@
             "StartDate": "01.09.2017",
             "EndDate": "31.12.2017",
             "weekDay": 5,
-            "Parity": false
+            "Parity": true
         },
         "14": {
             "Date": null,

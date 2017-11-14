@@ -1,4 +1,4 @@
-package ru.galkinivan.StudentsAppBackend.controller.testEnv;
+package ru.galkinivan.StudentsAppBackend.controller.API;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,16 +20,16 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 /**
- * ApiController for test environment for remote app
+ * ApiStudyPlaceController for test environment for remote app
  *
  * @author Galkin Ivan
  * @version 1.0
  */
 
 @Controller
-@RequestMapping(value = "/testEnv/api", produces="application/json; charset=UTF-8")
+@RequestMapping(value = "/api/studyPlace", produces="application/json; charset=UTF-8")
 @ResponseBody
-public class ApiController {
+public class ApiStudyPlaceController {
 
     @Autowired
     private UniversityDao universityDao;
@@ -119,13 +119,13 @@ public class ApiController {
     @RequestMapping(value = "groups", method = RequestMethod.GET)
     @SuppressWarnings("unchecked")
     @Transactional
-    public String getGroups( @RequestParam(value = "university") Long universityName,
-                                @RequestParam(value = "faculty") Long facultyName) {
+    public String getGroups( @RequestParam(value = "university") Long universityId,
+                                @RequestParam(value = "faculty") Long facultyId) {
 
         Iterable<Faculty> faculties = null;
         Faculty selectedFaculty = null;
 
-        University university = universityDao.findOne(universityName);
+        University university = universityDao.findOne(universityId);
         if (university != null)
             faculties = university.getFaculties();
 
@@ -136,7 +136,7 @@ public class ApiController {
             JSONArray jsonArray = new JSONArray();
             //--- Finding the selected faculty
             for (Faculty faculty : faculties) {
-                if (faculty.getId().equals(facultyName)) {
+                if (faculty.getId().equals(facultyId)) {
                     selectedFaculty = faculty;
                     break;
                 }

@@ -140,6 +140,33 @@ CREATE TABLE IF NOT EXISTS time_table(
 
 -- End Core Data Replication
 
+-- Refer groups to core data replication tables
+
+-- Table mapping subjects to groups: groups_subjects
+CREATE TABLE IF NOT EXISTS groups_subjects(
+  group_id INT NOT NULL ,
+  subject_id INT NOT NULL ,
+
+  FOREIGN KEY (group_id) REFERENCES groups(id),
+  FOREIGN KEY (subject_id) REFERENCES subjects(id),
+
+  UNIQUE (group_id,subject_id)
+)
+  ENGINE = InnoDB;
+
+-- Table mapping teachers to groups: groups_teachers
+CREATE TABLE IF NOT EXISTS groups_teachers(
+  group_id INT NOT NULL ,
+  teacher_id INT NOT NULL ,
+
+  FOREIGN KEY (group_id) REFERENCES groups(id),
+  FOREIGN KEY (teacher_id) REFERENCES teacher(id),
+
+  UNIQUE (group_id,teacher_id)
+)
+  ENGINE = InnoDB;
+
+-- End Refer groups to core data replication tables
 
 -- Insert data
 -- SET FOREIGN_KEY_CHECKS = 0;
@@ -253,23 +280,48 @@ INSERT INTO tasks(id, date, description, priority, short_name, status, subject_i
 
 
 INSERT INTO time_table(id, begin_date, end_date, date, day_of_week, start_time, end_time, parity, place, type, subject_id, teacher_id) VALUES
-  (1, '2017-09-01', '2017-12-31', NULL , 2, 1015, 1150, TRUE , '515ю', 'Лекция', 1, 1),
+  (1, '2017-09-01', '2017-12-31', NULL , 2, 1015, 1150, FALSE , '515ю', 'Лекция', 1, 1),
   (2, '2017-09-01', '2017-12-31', NULL , 2, 1200, 1335, NULL , '319', 'Лекция', 2, 2),
   (3, '2017-09-01', '2017-12-31', NULL , 2, 1540, 1715, NULL , 'Каф', 'Консультация', 3, 3),
   (4, '2017-09-01', '2017-12-31', NULL , 3, 1200, 1335, NULL , '306ю', 'Лекция', 4, 4),
   (5, '2017-09-01', '2017-12-31', NULL , 3, 1350, 1525, NULL , '319', 'Лекция', 2, 2),
   (6, '2017-09-01', '2017-12-31', NULL , 3, 1800, 2100, NULL , '502ю', 'Лекция', 5, NULL ),
   (7, '2017-09-01', '2017-12-31', NULL , 4, 1015, 1150, NULL , '306ю', 'Семинар', 4, 4),
-  (8, '2017-09-01', '2017-12-31', NULL , 4, 830, 1005, FALSE , '392', 'Семинар', 6, 5),
-  (9, '2017-09-01', '2017-12-31', NULL , 4, 1200, 1335, FALSE , '319', 'Лекция', 7, 6),
+  (8, '2017-09-01', '2017-12-31', NULL , 4, 830, 1005, TRUE , '392', 'Семинар', 6, 5),
+  (9, '2017-09-01', '2017-12-31', NULL , 4, 1200, 1335, TRUE , '319', 'Лекция', 7, 6),
   (10, '2017-09-01', '2017-12-31', NULL , 5, 1350, 1525, NULL , '319', 'Лекция', 8, 7),
   (11, '2017-09-01', '2017-12-31', NULL , 5, 1540, 1715, NULL , '533', 'Лекция', 7, 6),
   (12, '2017-09-01', '2017-12-31', NULL , 5, 1725, 1900, NULL , '430', 'Лекция', 9, 8),
-  (13, '2017-09-01', '2017-12-31', NULL , 5, 1200, 1335, FALSE , '319', 'Лекция', 8, 7),
+  (13, '2017-09-01', '2017-12-31', NULL , 5, 1200, 1335, TRUE , '319', 'Лекция', 8, 7),
   (14, '2017-09-01', '2017-12-31', NULL , 5, 1900, 2100, FALSE , '430', 'Лекция', 9, 8),
   (15, NULL , NULL , '2017-10-25', NULL, 1900, 2100, NULL , 'каф', 'Консультация', 10, 9)
   ;
 
+-- Insert into Refer groups to core data replication tables
+INSERT INTO groups_subjects(group_id, subject_id) VALUES
+  (2,1),
+  (2,2),
+  (2,3),
+  (2,4),
+  (2,5),
+  (2,6),
+  (2,7),
+  (2,8),
+  (2,9),
+  (2,10),
+  (2,11)
+  ;
 
+INSERT INTO groups_teachers(group_id, teacher_id) VALUES
+  (2,1),
+  (2,2),
+  (2,3),
+  (2,4),
+  (2,5),
+  (2,6),
+  (2,7),
+  (2,8),
+  (2,9)
+;
 
 SET FOREIGN_KEY_CHECKS = 1;

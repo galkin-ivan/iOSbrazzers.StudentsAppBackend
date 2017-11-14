@@ -1,6 +1,7 @@
 package ru.galkinivan.StudentsAppBackend.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "teacher")
@@ -18,6 +19,10 @@ public class Teacher {
 
     @Column(name = "father_name")
     private String fatherName;
+
+    @ManyToMany
+    @JoinTable(name = "groups_teachers", joinColumns = @JoinColumn(name = "teacher_id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<Group> groups;
 
     public Long getId() {
         return id;
@@ -49,5 +54,13 @@ public class Teacher {
 
     public void setFatherName(String fatherName) {
         this.fatherName = fatherName;
+    }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
 }

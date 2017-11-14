@@ -1,1 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
+.idea/dataSources.local.xml
+.idea/encodings.xml
+.idea/libraries/
+.idea/workspace.xml
