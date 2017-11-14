@@ -3,7 +3,6 @@ package ru.galkinivan.StudentsAppBackend.controller.API;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,11 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.galkinivan.StudentsAppBackend.dao.GroupDao;
-import ru.galkinivan.StudentsAppBackend.dao.TimeTableDao;
 import ru.galkinivan.StudentsAppBackend.model.*;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Set;
 
@@ -26,9 +22,6 @@ public class ApiDataInit {
 
     @Autowired
     private GroupDao groupDao;
-
-    @Autowired
-    private TimeTableDao timeTableDao;
 
     @RequestMapping(value = "")
     @SuppressWarnings("unchecked")
@@ -111,9 +104,10 @@ public class ApiDataInit {
             jsonEvent.put("subject", timeTableEvent.getSubject().getName());
             if (timeTableEvent.getTeacher() != null) {
                 JSONObject jsonTeacher = new JSONObject();
-                jsonTeacher.put("teacherName", timeTableEvent.getTeacher().getName());
-                jsonTeacher.put("teacherFamilyName", timeTableEvent.getTeacher().getFamilyName());
-                jsonTeacher.put("teacherFatherName", timeTableEvent.getTeacher().getFatherName());
+                jsonTeacher.put("id", timeTableEvent.getTeacher().getId());
+                jsonTeacher.put("name", timeTableEvent.getTeacher().getName());
+                jsonTeacher.put("familyName", timeTableEvent.getTeacher().getFamilyName());
+                jsonTeacher.put("fatherName", timeTableEvent.getTeacher().getFatherName());
                 jsonEvent.put("teacher", jsonTeacher);
             }else{
                 jsonEvent.put("teacher", null);
