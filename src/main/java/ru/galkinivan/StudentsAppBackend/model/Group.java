@@ -22,6 +22,15 @@ public class Group {
     @JoinTable(name = "groups_teachers", joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "teacher_id"))
     private Set<Teacher> teachers;
 
+    @OneToMany(mappedBy = "group")
+    private Set<Activity> activities;
+
+    @OneToMany(mappedBy = "group")
+    private Set<Task> tasks;
+
+    @OneToMany(mappedBy = "group")
+    private Set<TimeTable> timeTableEvents;
+
     public Long getId() {
         return id;
     }
@@ -52,5 +61,29 @@ public class Group {
 
     public void setTeachers(Set<Teacher> teachers) {
         this.teachers = teachers;
+    }
+
+    public Set<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(Set<Activity> activities) {
+        this.activities = activities;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public Set<TimeTable> getTimeTableEvents() {
+        return timeTableEvents;
+    }
+
+    public void setTimeTableEvents(Set<TimeTable> timeTableEvents) {
+        this.timeTableEvents = timeTableEvents;
     }
 }

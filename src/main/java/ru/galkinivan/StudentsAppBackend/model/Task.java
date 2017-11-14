@@ -30,6 +30,10 @@ public class Task {
     @JoinColumn(name = "subject_id")
     private Subject subject;
 
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
+
     public Long getId() {
         return id;
     }
@@ -84,5 +88,13 @@ public class Task {
 
     public void setSubject(Subject subject) {
         this.subject = subject;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

@@ -46,6 +46,10 @@ public class TimeTable {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
+
     public Long getId() {
         return id;
     }
@@ -140,5 +144,13 @@ public class TimeTable {
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }
