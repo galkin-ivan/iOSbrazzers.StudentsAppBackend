@@ -18,6 +18,8 @@
                     username-parameter="username" password-parameter="password"/>
 
         <logout logout-success-url="/login?logout"/>
+
+        <csrf disabled="true"/>
     </http>
 
     <authentication-manager alias="authenticationManager">
@@ -33,4 +35,5 @@
                 class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
         <beans:constructor-arg name="strength" value="11"/>
     </beans:bean>
+
 </beans:beans>
