@@ -41,6 +41,7 @@ public class ApiSearch {
             jsonSubjects.add(jsonSubject);
         }
         returnData.put("fondSubjects", jsonSubjects);
+        returnData.put("query", stringToFindInName);
 
         return returnData.toJSONString();
     }

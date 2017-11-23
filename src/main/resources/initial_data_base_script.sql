@@ -1,3 +1,7 @@
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE activities, faculties, faculties_groups, groups, groups_subjects, groups_teachers, roles, subjects, tasks, teacher, time_table, universities, universities_faculties, user_roles, users;
+
+
 -- Table: users
 CREATE TABLE IF NOT EXISTS users (
   id       INT          NOT NULL AUTO_INCREMENT PRIMARY KEY,
