@@ -10,4 +10,6 @@ public interface SubjectDao extends JpaRepository<Subject, Long> {
     @Query("select s from Subject s where s.name LIKE CONCAT('%',:name,'%')")
     Iterable<Subject> findByNameWithLike(@Param("name") String name);
 
+    @Query("select s from Subject s where s.name = :name")
+    Subject findByName(@Param("name") String name);
 }
